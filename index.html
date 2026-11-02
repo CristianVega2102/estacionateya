@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1550D6">
+  <title>EstacionateYa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="cargando" class="cargando">Cargando…</div>
+
+  <!-- PANTALLA 1: ACCESO -->
+  <main id="pantalla-auth" class="auth" hidden>
+    <header class="auth-cabecera">
+      <div class="marca"><span class="sello" aria-hidden="true">P</span><h1>EstacionateYa</h1></div>
+      <p>Encontrá lugar en la calle o alquilá un garage por hora.</p>
+    </header>
+
+    <section class="auth-hoja">
+      <div class="segmentos">
+        <button type="button" class="tab-auth activo" data-modo="ingresar">Ingresar</button>
+        <button type="button" class="tab-auth" data-modo="registro">Crear cuenta</button>
+      </div>
+
+      <form id="form-auth">
+        <div class="campo solo-registro" hidden>
+          <label for="auth-nombre">Nombre</label>
+          <input id="auth-nombre" type="text" autocomplete="name" placeholder="Tu nombre">
+        </div>
+        <div class="campo solo-registro" hidden>
+          <label for="auth-telefono">WhatsApp</label>
+          <input id="auth-telefono" type="tel" inputmode="numeric" autocomplete="tel" placeholder="5491122334455">
+          <small>Con código de país, sin + ni espacios.</small>
+        </div>
+        <div class="campo">
+          <label for="auth-email">Email</label>
+          <input id="auth-email" type="email" autocomplete="email" placeholder="tu@email.com" required>
+        </div>
+        <div class="campo">
+          <label for="auth-password">Contraseña</label>
+          <input id="auth-password" type="password" autocomplete="current-password" minlength="6" placeholder="Mínimo 6 caracteres" required>
+        </div>
+        <p id="auth-error" class="error" role="alert"></p>
+        <button id="btn-auth" type="submit" class="btn btn-primario ancho">Ingresar</button>
+      </form>
+
+      <p class="separador"><span>o</span></p>
+      <button id="btn-google" type="button" class="btn btn-borde ancho">Continuar con Google</button>
+    </section>
+  </main>
+
+  <!-- PANTALLA 2: APP -->
+  <div id="pantalla-app" hidden>
+    <header class="app-cabecera">
+      <div class="marca chica"><span class="sello" aria-hidden="true">P</span><strong>EstacionateYa</strong></div>
+      <button id="btn-salir" type="button" class="btn-texto">Salir</button>
+    </header>
+
+    <main class="contenedor">
+      <!-- Conductor: buscar -->
+      <section id="vista-buscar" class="vista">
+        <h2>Lugares disponibles</h2>
+        <div class="chips">
+          <button type="button" class="chip activo" data-filtro="calle">En vivo (Calle)</button>
+          <button type="button" class="chip" data-filtro="garage">Garages privados</button>
+        </div>
+        <div id="lista-buscar" class="lista"></div>
+      </section>
+
+      <!-- Ancla: publicar -->
+      <section id="vista-publicar" class="vista" hidden>
+        <h2>Ofrecer un lugar</h2>
+        <div class="segmentos">
+          <button type="button" class="seg activo" data-tipo="calle">Calle (En vivo)</button>
+          <button type="button" class="seg" data-tipo="garage">Garage privado</button>
+        </div>
+
+        <form id="form-publicar">
+          <div class="campo solo-calle">
+            <button id="btn-ubicacion" type="button" class="btn btn-borde ancho">Usar mi ubicación actual</button>
+            <small id="estado-ubicacion">Hace falta para que te encuentren.</small>
+          </div>
+          <div class="campo">
+            <label for="pub-direccion" id="lbl-direccion">Calle y altura</label>
+            <input id="pub-direccion" type="text" placeholder="Ej: Av. Corrientes 1234" required>
+          </div>
+          <div class="campo">
+            <label for="pub-descripcion">Referencia</label>
+            <input id="pub-descripcion" type="text" placeholder="Ej: auto gris, salgo en 5 minutos">
+          </div>
+          <div class="campo solo-garage" hidden>
+            <label for="pub-horario">Horario disponible</label>
+            <input id="pub-horario" type="text" placeholder="Ej: Lunes a viernes de 9 a 18">
+          </div>
+          <div class="campo">
+            <label for="pub-costo" id="lbl-costo">Costo</label>
+            <input id="pub-costo" type="number" inputmode="decimal" min="0" step="any" placeholder="0" required>
+          </div>
+          <div class="campo">
+            <label for="pub-telefono">Tu WhatsApp</label>
+            <input id="pub-telefono" type="tel" inputmode="numeric" placeholder="5491122334455" required>
+          </div>
+          <button id="btn-publicar" type="submit" class="btn btn-primario ancho">Publicar lugar</button>
+        </form>
+      </section>
+
+      <!-- Ancla: mis publicaciones -->
+      <section id="vista-mis" class="vista" hidden>
+        <h2>Mis lugares</h2>
+        <div id="lista-mis" class="lista"></div>
+      </section>
+    </main>
+
+    <nav class="nav">
+      <button type="button" class="nav-btn activo" data-vista="buscar">Buscar</button>
+      <button type="button" class="nav-btn" data-vista="publicar">Publicar</button>
+      <button type="button" class="nav-btn" data-vista="mis">Mis lugares</button>
+    </nav>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
